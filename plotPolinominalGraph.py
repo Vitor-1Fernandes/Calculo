@@ -1,39 +1,45 @@
 import matplotlib.pyplot as plt  # Usado para criar gráficos e visualizações
 import numpy as np  # Numpy é uma biblioteca fundamental para operações matemáticas e manipulação de arrays
 
-dadosiniciais = np.array([1955, 1960, 1965, 1970, 1975, 1980, 1985, 1990, 1995, 2000])
+# Entrada da função
+entradas = np.array([1, 2, 3, 4, 5, 6])
 
-migracao = np.array([30.4,
-26.4,
-23.6,
-21.1,
-19.0,
-17.1,
-15.0, 
-13.0,
-11.7,
-10.5])
+#Saidas da função
+saidas = np.array([1, 4, 6, 8, 10, 12])
 
-anosnovos = np.array([1988, 2002])
+# polyfit é um objeto usada para descobrir a função polinominal que corresponde as entradas e saidas apresentadas. Estrutura: (valores de entrada, valores de saida, numero de polinômios)
+coeficientes = np.polyfit(entradas, saidas, 2)
 
-coeficientes = np.polyfit(anos,migracao, 6)
-print(coeficientes)
-
+# o objeto poly1d tem a capacidade de aplicar baseado nos coeficientes que vão dentro dos (). Logo, atribuir essa função a uma variável a torna capaz de devolver o valor de y para qualquer x
 modelo = np.poly1d(coeficientes)
-migracaonova = modelo(anosnovos)
 
-print(migracaonova)
-
-
-x_fit = np.linspace(min(anos), max(anos), 400)
+#O linspace utiliza o valor mais baixo e o mais alto entre as entradas para criar números igualmente espaçados, utilizaremos esses valores para criar a linha de tendência
+x_fit = np.linspace(min(entradas), max(entradas), 400)
 y_fit = modelo(x_fit)
 
-plt.figure(figsize=(10, 6))
-plt.plot(anosnovos, migracaonova, 'o', label='Dados Originais')
-# plt.plot(x_fit, y_fit, 'r--', label=f'Modelo: {modelo}')
-plt.title('Migracao por ano')
-plt.xlabel('Ano')
-plt.ylabel('Migracao')
-plt.legend()
-plt.grid(True)
-plt.show()
+# Função para criar o gráfico
+def plotGraph (entradas_x, saidas_y): 
+
+    # Define o tamanho da figura
+    plt.figure(figsize=(10, 6))
+    
+    # plt.plot coloca os pontos no gráfico (valores de x, valores de y, "tipo de marcação", label="legenda")
+    plt.plot(entradas_x, saidas_y, 'o', label='Dados Originais')
+
+    # Utilizaremos o plt.plot novamente, dessa vez usando a marcação "r--" para criar uma linha de tendência
+    plt.plot(x_fit, y_fit, 'r--', label=f'Modelo: {modelo}')
+    # Titulo do gráfico
+    plt.title('Migracao por ano')
+    # Legenda X
+    plt.xlabel('Ano')
+    # Legenda Y
+    plt.ylabel('Migracao')
+    # Ativa a legenda
+    plt.legend()
+    # Ativa o fundo grid
+    plt.grid(True)
+    # exibe o gráfico
+    plt.show()
+
+# Executa a função baseado nos valores recebidos
+plotGraph(entradas, saidas)
