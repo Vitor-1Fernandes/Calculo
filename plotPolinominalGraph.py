@@ -10,11 +10,12 @@ saidas = np.array([5 ,7 ,10 , 9, -4, 22, 20])
 # polyfit é um objeto usada para descobrir a função polinominal que corresponde as entradas e saidas apresentadas. Estrutura: (valores de entrada, valores de saida, numero de polinômios)
 coeficientes = np.polyfit(entradas, saidas, 6)
 
-# o objeto poly1d tem a capacidade de aplicar baseado nos coeficientes que vão dentro dos (). Logo, atribuir essa função a uma variável a torna capaz de devolver o valor de y para qualquer x
+# o objeto poly1d tem a capacidade de aplicar uma função baseado nos coeficientes que vão dentro dos (). Logo, atribuir esse valor a uma variável a torna capaz de devolver o valor de y para qualquer valor de x
 modelo = np.poly1d(coeficientes)
 
 #O linspace utiliza o valor mais baixo e o mais alto entre as entradas para criar números igualmente espaçados, utilizaremos esses valores para criar a linha de tendência
 x_fit = np.linspace(min(entradas), max(entradas), 400)
+# Utiliza função com os coeficientes mais próximos obtidos para gerar um valor aproximado de y para cada valor de x. A exatidão da função é refletida pela proximidade da linha de tendência vermelha com os pontos azuis no gráfico
 y_fit = modelo(x_fit)
 
 # Função para criar o gráfico
